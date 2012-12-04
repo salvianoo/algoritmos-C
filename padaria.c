@@ -15,8 +15,6 @@
 
 float mercadorias_precos[100];
 int mercadorias_vendidas[100];
-
-float faturamento_total = 0;
 int length = sizeof(mercadorias_vendidas) / sizeof(int);
 
 void setup_mercadorias_vendidas_precos() {
@@ -31,6 +29,8 @@ void setup_mercadorias_vendidas_precos() {
 }
 
 float faturamento_mensal() {
+
+  float faturamento_total = 0;
   int i = 0;
 
   for (i = 0; i <= length; i++) {
