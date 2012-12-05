@@ -13,38 +13,51 @@
 #include <stdlib.h>
 #include <time.h>
 
-float mercadorias_precos[100];
-int mercadorias_vendidas[100];
-int length = sizeof(mercadorias_vendidas) / sizeof(int);
+float products_prices[100];
+int products_sold[100];
+int length = sizeof(products_sold) / sizeof(int);
 
-void setup_mercadorias_vendidas_precos() {
-  srand(time(NULL));
+void read_prices_products_from_a_file(char *name_of_file) {
+  FILE *in = fopen(name_of_file, "rt");
+  char buffer[100];
+  fgets(buffer, 20, in);
+
   int i = 0;
-
   for (i = 0; i <= length; i++) {
-    mercadorias_precos[i] = rand() % 40;
-
-    mercadorias_vendidas[i] = rand() % 5;
+    products_sold[i] = atoi(buffer);
   }
+  fclose(in);
 }
 
-float faturamento_mensal() {
+void generate_random_values_for_products_sold(int max_value) {
+  int i = 0;
+  srand(time(NULL));
 
-  float faturamento_total = 0;
+  for (i = 0; i <= length; i++) {
+    products_sold[i] = rand() % max_value;
+  }
+
+}
+
+float billing_of_month() {
+  float total_billing = 0;
   int i = 0;
 
   for (i = 0; i <= length; i++) {
-    faturamento_total +=
-      mercadorias_precos[i] * mercadorias_vendidas[i];
+    total_billing +=
+      products_prices[i] * products_sold[i];
   }
 
-  return faturamento_total;
+  return total_billing;
 }
 
 int main(int argc, const char *argv[]) {
-  setup_mercadorias_vendidas_precos();
+  char *file = "lista_precos.txt";
+  read_prices_products_from_a_file(file);
 
-  printf("Faturamento mensal: R$ %g reais.\n" , faturamento_mensal());
+  generate_random_values_for_products_sold(5);
+
+  printf("Faturamento mensal: R$ %g reais.\n" , billing_of_month());
 
   return 0;
 }
