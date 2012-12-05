@@ -24,7 +24,7 @@ void read_prices_products_from_a_file(char *name_of_file) {
   int i = 0;
   for (i = 0; i < length; i++) {
     fgets(buffer, 20, in);
-    products_prices[i] = atoi(buffer);
+    products_prices[i] = atof(buffer);
   }
 
   fclose(in);
