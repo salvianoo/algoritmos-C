@@ -20,12 +20,13 @@ int length = sizeof(products_sold) / sizeof(int);
 void read_prices_products_from_a_file(char *name_of_file) {
   FILE *in = fopen(name_of_file, "rt");
   char buffer[100];
-  fgets(buffer, 20, in);
 
   int i = 0;
-  for (i = 0; i <= length; i++) {
-    products_sold[i] = atoi(buffer);
+  for (i = 0; i < length; i++) {
+    fgets(buffer, 20, in);
+    products_prices[i] = atoi(buffer);
   }
+
   fclose(in);
 }
 
@@ -33,19 +34,17 @@ void generate_random_values_for_products_sold(int max_value) {
   int i = 0;
   srand(time(NULL));
 
-  for (i = 0; i <= length; i++) {
+  for (i = 0; i < length; i++) {
     products_sold[i] = rand() % max_value;
   }
-
 }
 
 float billing_of_month() {
   float total_billing = 0;
   int i = 0;
 
-  for (i = 0; i <= length; i++) {
-    total_billing +=
-      products_prices[i] * products_sold[i];
+  for (i = 0; i < length; i++) {
+    total_billing += products_prices[i] * products_sold[i];
   }
 
   return total_billing;
